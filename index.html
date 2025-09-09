@@ -74,7 +74,7 @@
         <input type="text" id="name" placeholder="Your Name" required />
         <input type="text" id="rollNo" placeholder="Your Roll No." required />
         <input type="text" id="enrollmentNo" placeholder="Your Enrollment No." required />
-        <textarea id="extraMessage" rows="5" placeholder="Additional message (optional)"></textarea>
+        <textarea id="extraMessage" rows="3" placeholder="Additional message (optional)"></textarea>
         <button onclick="sendEmail()">Send My Concern</button>
         <div class="footer">
             After clicking the button, your default mail app will open with a pre-filled message ready to send.
@@ -88,26 +88,27 @@
             const enrollmentNo = encodeURIComponent(document.getElementById('enrollmentNo').value.trim());
             const extraMessage = encodeURIComponent(document.getElementById('extraMessage').value.trim());
 
-            const subject = encodeURIComponent('Serious Concern Regarding My JMI CDOE Academic Experience');
+            const subject = encodeURIComponent('Concern Regarding JMI CDOE Academic Experience');
 
             const body =
                 `Respected Sir/Madam,%0A%0A` +
                 `My name is ${name}.%0A` +
                 `Roll No.: ${rollNo}%0A` +
                 `Enrollment No.: ${enrollmentNo}%0A%0A` +
-                `I am writing to express my serious concern regarding multiple difficulties I am facing in my academic journey as a student of Jamia Millia Islamia Centre for Distance and Online Education (JMI CDOE), August-September 2023 batch.%0A%0A` +
-                `1️⃣ First Major Problem – Absence of Offline Classes:%0A` +
-                `During admission, I explicitly selected the offline mode with the firm understanding that both counseling sessions and academic classes would be conducted offline, providing personal interaction and proper guidance. However, even after completing two academic years and appearing in both yearly exams, not a single offline class was conducted. All sessions were held online. This is deeply unjust, especially considering that we paid fees under the belief of receiving offline services. We expected meaningful face-to-face interactions with faculty, but were completely neglected.%0A%0A` +
-                `2️⃣ Second Major Problem – Extremely Late Delivery of Study Materials (SLM):%0A` +
-                `The Self Learning Material (SLM), which is crucial for understanding and preparing our syllabus, was provided far too late. In several cases, the material arrived just a few days before exams, which is practically useless for proper learning. Many students still have incomplete course materials, missing significant portions. This irresponsible delay has led to immense academic stress and poor preparation among students.%0A%0A` +
-                `3️⃣ Third Major Problem – Lack of Academic Communication and Transparency:%0A` +
-                `From the very beginning, we have been kept in complete darkness regarding academic schedules, exam dates, and important instructions. No official academic calendar was shared, no timely updates were provided, and there is no reliable communication channel to address our doubts or queries. To make things worse, the first year was unnecessarily extended to 1.5 years while the second year was rushed into less than 8 months without clarity. How can students succeed in such a chaotic system?%0A%0A` +
-                `🔔 DEMANDS & SOLUTIONS WE EXPECT IMMEDIATELY:%0A` +
-                `• Proper offline counseling and class sessions must be conducted at least for the remaining third and final year.%0A` +
-                `• The Self Learning Material (SLM) must be delivered to students at the time of admission or immediately after fee payment, not just a few days before exams.%0A` +
-                `• An official, transparent academic calendar with clear exam schedules, deadlines, and processes must be published and regularly updated.%0A` +
-                `• A dedicated support system must be provided to help students clear their academic doubts and resolve queries in a timely manner.%0A%0A` +
-                `It is our sincere and urgent request that these serious issues are addressed immediately, and appropriate steps are taken to prevent such problems from repeating in the third and final year. Every student deserves a fair, transparent, and responsible academic environment, not unnecessary delays and confusion.%0A%0AThank you for your attention and support.%0A%0A[Your Name]`;
+                `I am writing to express serious concerns about my academic experience in Jamia Millia Islamia Centre for Distance and Online Education (JMI CDOE), August-September 2023 batch.%0A%0A` +
+                `1️⃣ Absence of Offline Classes:%0A` +
+                `I selected offline mode expecting proper offline counseling and classes. However, even after 2 years and both yearly exams, not a single offline class was conducted – only online sessions.%0A%0A` +
+                `2️⃣ Extremely Late Delivery of Study Materials (SLM):%0A` +
+                `SLM was delivered very late, often just days before exams. Many students still have incomplete materials.%0A%0A` +
+                `3️⃣ Lack of Academic Communication & Transparency:%0A` +
+                `No academic calendar or timely updates were provided. First year extended to 1.5 years, second year rushed under 8 months. No support to clarify doubts.%0A%0A` +
+                `🔔 DEMANDS (to avoid repeating in 3rd and final year):%0A` +
+                `• Proper offline classes and counseling must be conducted.%0A` +
+                `• SLM must be delivered at admission or immediately after fee payment.%0A` +
+                `• An official academic calendar with exam schedules and deadlines must be shared timely.%0A` +
+                `• A clear support system to resolve academic queries must be provided.%0A%0A` +
+                `We expect immediate action for a fair and transparent academic environment.%0A%0A` +
+                `Thank you for your attention.%0A%0A[Your Name]`;
 
             window.location.href = `mailto:mhaque4@jmi.ac.in,vc@jmi.ac.in?subject=${subject}&body=${body}`;
         }
