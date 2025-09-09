@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Send Concern Email to JMI Authorities</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
             background-color: #f9f9f9;
             display: flex;
             justify-content: center;
@@ -15,7 +14,6 @@
             min-height: 100vh;
             margin: 0;
         }
-
         .container {
             background-color: #fff;
             padding: 30px;
@@ -25,12 +23,10 @@
             width: 100%;
             text-align: center;
         }
-
         h1 {
             color: #333;
             margin-bottom: 20px;
         }
-
         input, textarea {
             width: 100%;
             padding: 12px;
@@ -39,11 +35,7 @@
             border: 1px solid #ddd;
             font-size: 16px;
         }
-
-        textarea {
-            resize: vertical;
-        }
-
+        textarea { resize: vertical; }
         button {
             background-color: #007BFF;
             color: #fff;
@@ -55,64 +47,57 @@
             width: 100%;
             margin-top: 15px;
         }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        .footer {
-            font-size: 12px;
-            color: #666;
-            margin-top: 20px;
-        }
+        button:hover { background-color: #0056b3; }
+        .footer { font-size: 12px; color: #666; margin-top: 20px; }
     </style>
 </head>
-
 <body>
-    <div class="container">
-        <h1>Send Concern to JMI Authorities</h1>
-        <input type="text" id="name" placeholder="Your Name" required />
-        <input type="text" id="rollNo" placeholder="Your Roll No." required />
-        <input type="text" id="enrollmentNo" placeholder="Your Enrollment No." required />
-        <textarea id="extraMessage" rows="3" placeholder="Additional message (optional)"></textarea>
-        <button onclick="sendEmail()">Send My Concern</button>
-        <div class="footer">
-            After clicking the button, your default mail app will open with a pre-filled message ready to send.
-        </div>
+
+<div class="container">
+    <h1>Send Concern to JMI Authorities</h1>
+    <input type="text" id="name" placeholder="Your Name" required />
+    <input type="text" id="rollNo" placeholder="Your Roll No." required />
+    <input type="text" id="enrollmentNo" placeholder="Your Enrollment No." required />
+    <textarea id="extraMessage" rows="3" placeholder="Additional message (optional)"></textarea>
+    <button onclick="generatePDFAndMail()">Generate PDF & Open Mail</button>
+    <div class="footer">
+        PDF will download automatically. Opened Gmail will have short mail ready. Attach the PDF before sending.
     </div>
+</div>
 
-    <script>
-        function sendEmail() {
-            const name = encodeURIComponent(document.getElementById('name').value.trim());
-            const rollNo = encodeURIComponent(document.getElementById('rollNo').value.trim());
-            const enrollmentNo = encodeURIComponent(document.getElementById('enrollmentNo').value.trim());
-            const extraMessage = encodeURIComponent(document.getElementById('extraMessage').value.trim());
+<!-- jsPDF library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+function generatePDFAndMail() {
+    const name = document.getElementById('name').value.trim();
+    const rollNo = document.getElementById('rollNo').value.trim();
+    const enrollmentNo = document.getElementById('enrollmentNo').value.trim();
+    const extraMessage = document.getElementById('extraMessage').value.trim();
 
-            const subject = encodeURIComponent('Concern Regarding JMI CDOE Academic Experience');
+    // ===== Generate PDF =====
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    let pdfContent = `Respected Sir/Madam,\n\n`;
+    pdfContent += `My name is ${name}.\nRoll No.: ${rollNo}\nEnrollment No.: ${enrollmentNo}\n\n`;
+    pdfContent += `I am writing to express my serious concerns regarding my academic experience in JMI CDOE, August-September 2023 batch.\n\n`;
+    pdfContent += `1. Absence of Offline Classes: Expected offline classes, but all were online.\n`;
+    pdfContent += `2. Late Delivery of SLM: Materials received very late; some incomplete.\n`;
+    pdfContent += `3. Poor Communication: No academic calendar, unclear schedules, no proper support.\n\n`;
+    pdfContent += `Demands:\n• Conduct proper offline classes.\n• Provide SLM on time.\n• Publish official academic calendar.\n• Clear support system for queries.\n\n`;
+    pdfContent += `Additional Message:\n${extraMessage}\n\nThank you for your attention.\n\n[Your Name: ${name}]`;
 
-            const body =
-                `Respected Sir/Madam,%0A%0A` +
-                `My name is ${name}.%0A` +
-                `Roll No.: ${rollNo}%0A` +
-                `Enrollment No.: ${enrollmentNo}%0A%0A` +
-                `I am writing to express serious concerns about my academic experience in Jamia Millia Islamia Centre for Distance and Online Education (JMI CDOE), August-September 2023 batch.%0A%0A` +
-                `1️⃣ Absence of Offline Classes:%0A` +
-                `I selected offline mode expecting proper offline counseling and classes. However, even after 2 years and both yearly exams, not a single offline class was conducted – only online sessions.%0A%0A` +
-                `2️⃣ Extremely Late Delivery of Study Materials (SLM):%0A` +
-                `SLM was delivered very late, often just days before exams. Many students still have incomplete materials.%0A%0A` +
-                `3️⃣ Lack of Academic Communication & Transparency:%0A` +
-                `No academic calendar or timely updates were provided. First year extended to 1.5 years, second year rushed under 8 months. No support to clarify doubts.%0A%0A` +
-                `🔔 DEMANDS (to avoid repeating in 3rd and final year):%0A` +
-                `• Proper offline classes and counseling must be conducted.%0A` +
-                `• SLM must be delivered at admission or immediately after fee payment.%0A` +
-                `• An official academic calendar with exam schedules and deadlines must be shared timely.%0A` +
-                `• A clear support system to resolve academic queries must be provided.%0A%0A` +
-                `We expect immediate action for a fair and transparent academic environment.%0A%0A` +
-                `Thank you for your attention.%0A%0A[Your Name]`;
+    doc.setFontSize(12);
+    doc.text(pdfContent, 10, 10);
+    const pdfFileName = `JMI_Concern_${rollNo}.pdf`;
+    doc.save(pdfFileName);
 
-            window.location.href = `mailto:mhaque4@jmi.ac.in,vc@jmi.ac.in?subject=${subject}&body=${body}`;
-        }
-    </script>
+    // ===== Open Gmail with short mail =====
+    const subject = encodeURIComponent("Concern Regarding JMI CDOE Academic Experience");
+    const body = encodeURIComponent(`Respected Sir/Madam,\n\nMy name is ${name}, Roll No: ${rollNo}, Enrollment No: ${enrollmentNo}.\n\nKey issues:\n1. Offline classes not conducted.\n2. SLM received late.\n3. Poor academic communication.\n\nPlease see attached PDF for full details.\n\nThank you.`);
+    const mailtoLink = `mailto:mhaque4@jmi.ac.in,vc@jmi.ac.in?subject=${subject}&body=${body}`;
+    window.location.href = mailtoLink;
+}
+</script>
+
 </body>
-
 </html>
